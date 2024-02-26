@@ -1,6 +1,6 @@
 NAME = Matt_daemon
 
-CXX = c++
+CXX = g++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98
 
 CXXFLAGS += -I $(INC_DIR)
@@ -19,6 +19,9 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
+
+docker:
+	docker-compose up --build
 
 clean:
 	$(RM) $(OBJ)
