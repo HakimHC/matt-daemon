@@ -1,0 +1,38 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-std=c++98",
+      "-I",
+      "./include",
+      "-c",
+      "-o",
+      "src/main.o",
+      "src/main.cpp"
+    ],
+    "directory": "/Users/hakimahmed/matt-daemon",
+    "file": "/Users/hakimahmed/matt-daemon/src/main.cpp",
+    "output": "/Users/hakimahmed/matt-daemon/src/main.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/c++",
+      "-Wall",
+      "-Werror",
+      "-Wextra",
+      "-std=c++98",
+      "-I",
+      "./include",
+      "-c",
+      "-o",
+      "src/TintinReporter.o",
+      "src/TintinReporter.cpp"
+    ],
+    "directory": "/Users/hakimahmed/matt-daemon",
+    "file": "/Users/hakimahmed/matt-daemon/src/TintinReporter.cpp",
+    "output": "/Users/hakimahmed/matt-daemon/src/TintinReporter.o"
+  }
+]

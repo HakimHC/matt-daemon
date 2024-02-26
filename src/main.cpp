@@ -4,5 +4,5 @@
 
 int main() {
     TintinReporter tr;
-    tr.log("INFO");
+    tr.log("Started.", "INFO");
 }

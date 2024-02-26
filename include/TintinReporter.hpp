@@ -9,5 +9,8 @@ class TintinReporter {
         TintinReporter(const TintinReporter&);
         TintinReporter& operator=(const TintinReporter&);
 
-        void log(const std::string& logLevel) const;
+        void log(const std::string& message, const std::string& logLevel) const;
+
+    private:
+        static const std::string _getFormattedDateTime();
 };
