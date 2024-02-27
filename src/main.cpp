@@ -5,6 +5,9 @@
 #include <unistd.h>
 
 #include "TintinReporter.hpp"
+#include "FileHandler.hpp"
+#include "constants.hpp"
+
 
 void notRootError() {
     std::cerr << "fatal: must be executed with root permissions." << std::endl;
@@ -15,8 +18,13 @@ int main() {
     if (geteuid() != 0)
         notRootError();
 
-    TintinReporter logger;
+    FileHandler::createDirectory(LOG_DIR_PATH);
+
+    TintinReporter logger(
+        FileHandler::openFileOutput(LOG_FILE_PATH)
+    );
+
     logger.info("Started.");
 
-    // system("cat /var/log/matt_daemon/matt_daemon.log");
+    system("cat /var/log/matt_daemon/matt_daemon.log");
 }

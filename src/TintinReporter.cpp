@@ -10,22 +10,25 @@
 
 #include "TintinReporter.hpp"
 
-#define LOG_DIR_PATH "/var/log/matt_daemon/"
-#define LOG_FILE_PATH "/var/log/matt_daemon/matt_daemon.log"
 
-TintinReporter::TintinReporter() {
-    mkdir(LOG_DIR_PATH, 0777);
+TintinReporter::TintinReporter() {}
 
-    this->_logFile = new std::ofstream(LOG_FILE_PATH, std::ios::app);
+TintinReporter::TintinReporter(std::ofstream* logFile) {
+    this->_logFile = logFile;
 }
-TintinReporter::~TintinReporter() {}
+
+TintinReporter::~TintinReporter() {
+    delete this->_logFile;
+}
 
 TintinReporter::TintinReporter(const TintinReporter& other) {
     *this = other;
 }
 
 TintinReporter& TintinReporter::operator=(const TintinReporter& rhs) {
-    if (this != &rhs) {;}
+    if (this != &rhs) {
+        this->_logFile = rhs._logFile;
+    }
     return *this;
 }
 
