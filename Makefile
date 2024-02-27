@@ -9,11 +9,13 @@ INC_DIR = ./include
 
 SRC_DIR = ./src
 
-SRC_FILES = main.cpp TintinReporter.cpp FileHandler.cpp
+SRC_FILES = main.cpp TintinReporter.cpp FileHandler.cpp Daemonizer.cpp
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
 OBJ = $(SRC:.cpp=.o)
+
+CONTAINER_NAME = daemon
 
 all: $(NAME)
 
@@ -21,7 +23,11 @@ $(NAME): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
 
 docker:
-	docker-compose up --build
+	docker-compose up -d --build
+	docker-compose exec $(CONTAINER_NAME) sh
+
+down:
+	docker-compose down
 
 clean:
 	$(RM) $(OBJ)
