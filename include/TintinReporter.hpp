@@ -1,10 +1,13 @@
+#ifndef TINTIN_REPORTER_HPP
+#define TINTIN_REPORTER_HPP
+
 #include <string>
 #include <fstream>
 
 
 class TintinReporter {
     public:
-        TintinReporter();
+        TintinReporter(std::ofstream*);
         ~TintinReporter();
 
         TintinReporter(const TintinReporter&);
@@ -15,9 +18,14 @@ class TintinReporter {
         void warning(const std::string&) const;
         void error(const std::string&) const;
 
+        void setLogFile(std::ofstream*);
+
 
     private:
+        TintinReporter();
         static const std::string    _getFormattedDateTime();
         void                        _log(const std::string& message, const std::string& logLevel) const;
         std::ofstream*              _logFile;
 };
+
+#endif // TINTIN_REPORTER_HPP
