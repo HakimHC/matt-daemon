@@ -28,7 +28,7 @@ int FileHandler::createFile(const std::string& path) {
 }
 
 std::ofstream* FileHandler::openFileOutput(const std::string& path) {
-    std::ofstream* file = new std::ofstream(path.c_str());
+    std::ofstream* file = new std::ofstream(path.c_str(), std::ios::app);
 
     if (!file->good()) {
         delete file;
