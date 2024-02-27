@@ -1,6 +1,7 @@
 #include "FileHandler.hpp"
 
 #include <sys/stat.h>
+#include <errno.h>
 
 FileHandler::FileHandler() {}
 FileHandler::~FileHandler() {}
@@ -15,7 +16,9 @@ FileHandler& FileHandler::operator=(const FileHandler& rhs) {
 }
 
 int FileHandler::createDirectory(const std::string& path) {
-    return mkdir(path.c_str(), 0777);
+    int ret = mkdir(path.c_str(), 0777);
+    if (ret == -1 && errno == EEXIST) return 0;
+    return ret;
 }
 
 int FileHandler::createFile(const std::string& path) {
