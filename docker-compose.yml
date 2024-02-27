@@ -3,3 +3,10 @@ version: '3'
 services:
   daemon:
     build: ./
+    volumes:
+    - "./src:/app/src"
+    - "./include:/app/include"
+    - "./Makefile:/app/Makefile"
+
+    stdin_open: true
+    tty: true

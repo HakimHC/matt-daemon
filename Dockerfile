@@ -8,8 +8,11 @@ COPY . /app
 
 WORKDIR /app
 
+RUN chmod +x ./container.sh
+
 RUN make
 
 # USER hakim
 
-CMD ["./Matt_daemon"]
+# CMD ["./Matt_daemon"]
+CMD ["./container.sh"]
