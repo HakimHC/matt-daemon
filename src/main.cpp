@@ -5,6 +5,7 @@
 #include <unistd.h>
 
 #include "TintinReporter.hpp"
+#include "Daemonizer.hpp"
 #include "FileHandler.hpp"
 #include "constants.hpp"
 
@@ -26,5 +27,11 @@ int main() {
 
     logger.info("Started.");
 
+    Daemonizer::daemonize();
+
     system("cat /var/log/matt_daemon/matt_daemon.log");
+
+    while (true) {
+        usleep(400);
+    }
 }
