@@ -21,13 +21,14 @@ int main() {
 
     FileHandler::createDirectory(LOG_DIR_PATH);
 
-    TintinReporter logger(
+    TintinReporter::setLogFile(
         FileHandler::openFileOutput(LOG_FILE_PATH)
     );
 
-    logger.info("Started.");
 
     Daemonizer::daemonize();
+
+    TintinReporter::info("Started.");
 
     system("cat /var/log/matt_daemon/matt_daemon.log");
 

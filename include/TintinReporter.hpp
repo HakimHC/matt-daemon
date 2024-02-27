@@ -7,25 +7,25 @@
 
 class TintinReporter {
     public:
-        TintinReporter(std::ofstream*);
-        ~TintinReporter();
 
-        TintinReporter(const TintinReporter&);
-        TintinReporter& operator=(const TintinReporter&);
+        static void debug(const std::string&);
+        static void info(const std::string&);
+        static void warning(const std::string&);
+        static void error(const std::string&);
 
-        void debug(const std::string&) const;
-        void info(const std::string&) const;
-        void warning(const std::string&) const;
-        void error(const std::string&) const;
-
-        void setLogFile(std::ofstream*);
+        static void setLogFile(std::ofstream*);
 
 
     private:
+        static const std::string            _getFormattedDateTime();
+        static void                         _log(const std::string& message, const std::string& logLevel);
+        static std::ofstream*               _logFile;
+
         TintinReporter();
-        static const std::string    _getFormattedDateTime();
-        void                        _log(const std::string& message, const std::string& logLevel) const;
-        std::ofstream*              _logFile;
+        TintinReporter& operator=(const TintinReporter&);
+        ~TintinReporter();
+        TintinReporter(const TintinReporter&);
 };
 
 #endif // TINTIN_REPORTER_HPP
+

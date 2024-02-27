@@ -10,48 +10,46 @@
 
 #include "TintinReporter.hpp"
 
+std::ofstream* TintinReporter::_logFile = NULL;
+
 
 TintinReporter::TintinReporter() {}
 
-TintinReporter::TintinReporter(std::ofstream* logFile) {
-    this->_logFile = logFile;
-}
-
-TintinReporter::~TintinReporter() {
-    delete this->_logFile;
-}
+TintinReporter::~TintinReporter() {}
 
 TintinReporter::TintinReporter(const TintinReporter& other) {
     *this = other;
 }
 
 TintinReporter& TintinReporter::operator=(const TintinReporter& rhs) {
-    if (this != &rhs) {
-        this->_logFile = rhs._logFile;
-    }
+    (void) rhs;
     return *this;
 }
 
-void TintinReporter::_log(const std::string& message, const std::string& logLevel) const {
-    *(this->_logFile) << TintinReporter::_getFormattedDateTime();
-    *(this->_logFile) << " [ " << logLevel << " ] - ";
-    *(this->_logFile) << message << std::endl;
+void TintinReporter::setLogFile(std::ofstream* file) {
+    TintinReporter::_logFile = file;
 }
 
-void TintinReporter::debug(const std::string& message) const {
-    this->_log(message, "DEBUG");
+void TintinReporter::_log(const std::string& message, const std::string& logLevel) {
+    *(TintinReporter::_logFile) << TintinReporter::_getFormattedDateTime();
+    *(TintinReporter::_logFile) << " [ " << logLevel << " ] - ";
+    *(TintinReporter::_logFile) << message << std::endl;
 }
 
-void TintinReporter::info(const std::string& message) const {
-    this->_log(message, "INFO");
+void TintinReporter::debug(const std::string& message) {
+    TintinReporter::_log(message, "DEBUG");
 }
 
-void TintinReporter::warning(const std::string& message) const {
-    this->_log(message, "WARNING");
+void TintinReporter::info(const std::string& message) {
+    TintinReporter::_log(message, "INFO");
 }
 
-void TintinReporter::error(const std::string& message) const {
-    this->_log(message, "ERROR");
+void TintinReporter::warning(const std::string& message) {
+    TintinReporter::_log(message, "WARNING");
+}
+
+void TintinReporter::error(const std::string& message) {
+    TintinReporter::_log(message, "ERROR");
 }
 
 const std::string TintinReporter::_getFormattedDateTime() {
