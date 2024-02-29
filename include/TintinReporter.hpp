@@ -14,6 +14,7 @@ class TintinReporter {
         static void error(const std::string&);
 
         static void setLogFile(std::ofstream*);
+        static std::ofstream* getLogFile();
 
 
     private:

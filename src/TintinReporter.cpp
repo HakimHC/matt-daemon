@@ -30,10 +30,17 @@ void TintinReporter::setLogFile(std::ofstream* file) {
     TintinReporter::_logFile = file;
 }
 
+std::ofstream* TintinReporter::getLogFile() {
+    return TintinReporter::_logFile;
+}
+
 void TintinReporter::_log(const std::string& message, const std::string& logLevel) {
     *(TintinReporter::_logFile) << TintinReporter::_getFormattedDateTime();
     *(TintinReporter::_logFile) << " [ " << logLevel << " ] - ";
-    *(TintinReporter::_logFile) << message << std::endl;
+    *(TintinReporter::_logFile) << message;
+    
+    if (message[message.size() - 1] != '\n')
+        *(TintinReporter::_logFile) << std::endl;
 }
 
 void TintinReporter::debug(const std::string& message) {
