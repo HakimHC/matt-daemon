@@ -1,7 +1,15 @@
 #include "FileHandler.hpp"
+#include "TintinReporter.hpp"
 
 #include <sys/stat.h>
+#include <sys/file.h>
 #include <errno.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+#include <exception>
+
+int FileHandler::_lockFileFd = -1;
 
 FileHandler::FileHandler() {}
 FileHandler::~FileHandler() {}
@@ -47,4 +55,21 @@ bool FileHandler::fileExists(const std::string& path) {
     if (!file.good()) ret = false;
     file.close();
     return ret;
+}
+
+void FileHandler::lock(const std::string& lockFile) {
+    FileHandler::_lockFileFd = open(lockFile.c_str(), O_RDWR | O_CREAT);
+
+    if (flock(FileHandler::_lockFileFd, LOCK_EX | LOCK_NB) < 0)
+        throw std::runtime_error("File is already locked.");
+}
+
+void FileHandler::unlock() {
+    flock(FileHandler::_lockFileFd, LOCK_UN);
+    close(FileHandler::_lockFileFd);
+}
+
+void FileHandler::removeFile(const std::string& filePath) {
+    if (remove(filePath.c_str()) == -1)
+        TintinReporter::warning("remove() failed...");
 }
