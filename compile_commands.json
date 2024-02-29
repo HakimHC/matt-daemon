@@ -52,23 +52,5 @@
     "directory": "/Users/hakimahmed/matt-daemon",
     "file": "/Users/hakimahmed/matt-daemon/src/FileHandler.cpp",
     "output": "/Users/hakimahmed/matt-daemon/src/FileHandler.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/g++",
-      "-Wall",
-      "-Werror",
-      "-Wextra",
-      "-std=c++98",
-      "-I",
-      "./include",
-      "-c",
-      "-o",
-      "src/Daemonizer.o",
-      "src/Daemonizer.cpp"
-    ],
-    "directory": "/Users/hakimahmed/matt-daemon",
-    "file": "/Users/hakimahmed/matt-daemon/src/Daemonizer.cpp",
-    "output": "/Users/hakimahmed/matt-daemon/src/Daemonizer.o"
   }
 ]

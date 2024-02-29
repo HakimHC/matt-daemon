@@ -2,7 +2,7 @@ FROM alpine:3.18
 
 RUN adduser -D hakim
 
-RUN apk update && apk add gcc g++ make
+RUN apk update && apk add gcc g++ make inetutils-telnet
 
 COPY . /app
 
