@@ -9,7 +9,7 @@ INC_DIR = ./include
 
 SRC_DIR = ./src
 
-SRC_FILES = main.cpp TintinReporter.cpp FileHandler.cpp Daemonizer.cpp Server.cpp
+SRC_FILES = main.cpp TintinReporter.cpp FileHandler.cpp Daemonizer.cpp Server.cpp SignalHandler.cpp
 
 SRC = $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
