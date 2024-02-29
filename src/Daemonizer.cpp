@@ -1,11 +1,15 @@
 #include <cstdlib>
 
 #include "Daemonizer.hpp"
+#include "TintinReporter.hpp"
 
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <stdio.h>
+#include <string.h>
+
+#include <sstream>
 
 Daemonizer::Daemonizer() {}
 Daemonizer::~Daemonizer() {}
@@ -19,21 +23,25 @@ Daemonizer& Daemonizer::operator=(const Daemonizer&) {
 }
 
 int Daemonizer::daemonize() {
+    TintinReporter::info("Entering daemon mode.");
+
     pid_t pid = fork();
-    if (pid == -1) {
-        perror("fork");
-        return -1;
-    }
+    if (pid == -1) throw std::runtime_error(strerror(errno));
     if (pid != 0) std::exit(0);
 
-    if (setsid() == -1) {
-        perror("setsid");
-        return -1;
-    }
+    if (setsid() == -1) throw std::runtime_error(strerror(errno));
 
     umask(0);
     chdir("/");
     Daemonizer::_closeAndRedirectFds();
+
+    int newPid = getpid();
+    std::stringstream ss;
+
+    ss << newPid;
+    std::string log = "started. PID:  " + ss.str();
+
+    TintinReporter::info(log);
 
     return (0);
 }
@@ -41,6 +49,8 @@ int Daemonizer::daemonize() {
 void Daemonizer::_closeAndRedirectFds() {
     int null_fd = open("/dev/null", O_RDWR);
     const int std_fd[] = { STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO };
+
+    TintinReporter::debug("Closing and redirecting file descriptors.");
 
     for (int fd = 0; fd < 3; fd++) {
         close(fd);

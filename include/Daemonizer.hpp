@@ -11,6 +11,7 @@ class Daemonizer {
         Daemonizer& operator=(const Daemonizer&);
 
         static void _closeAndRedirectFds();
+
 };
 
 #endif // DAEMONIZER_HPP
